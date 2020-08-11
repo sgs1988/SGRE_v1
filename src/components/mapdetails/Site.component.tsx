@@ -43,7 +43,6 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
         // this.handleAddSite = this.handleAddSite.bind(this);
         this.openModel = this.openModel.bind(this);
         this.projectModel = this.props.project?.getProjectDetails;
-        console.log(this.projectModel);
         this.coordinateData = [];
 
         // this.toggleCordinate = this.toggleCordinate.bind(this);
@@ -72,11 +71,9 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
 
     state: any = {};
     toggle: any = () => {
-        //console.log("work")
         this.tooltipOpen = !this.tooltipOpen
     }
     toggleDropdown: any = () => {
-        //console.log("work")
         this.tooltipOpen = !this.tooltipOpen
     }
     state1 = {
@@ -104,17 +101,19 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
     }
 
     openModel: any = (item: any, index: number) => {
-        this.state.siteName.map((site: any, index: number) => {
-            site.active = false;
-        });
-        this.state.siteName[index].active = true;
-        this.setState({ siteName: this.state.siteName, addSite: false });
-        this.props.setSiteDetails(this.state.siteName[index]);
-        //call
+        if (this.state.siteName[index]) {
+            this.state.siteName.map((site: any, index: number) => {
+                site.active = false;
+            });
+            this.state.siteName[index].active = true;
+            this.setState({ siteName: this.state.siteName, addSite: false });
+            let triggerSiteDetails: any = {siteName: this.state.siteName[index], index: index, action: 'trigger'};
+            this.props.setSiteDetails(triggerSiteDetails);
+            //call
+        }
     }
 
     componentDidMount() {
-        console.log(this.props.project?.getProjectDetails);
         this.final = this.props.project?.getProjectDetails;
         if (this.props.newShapeCoordinate.addSite === true && this.props.newShapeCoordinate.coordinateList.length > 0) {
             this.updateAddSite(this.props.newShapeCoordinate.coordinateList, this.props.newShapeCoordinate.selectShapIndex);
@@ -122,10 +121,9 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
     }
     componentDidUpdate(prevProps: any) {
 
-        if (prevProps.newShapeCoordinate !== this.props.newShapeCoordinate && this.props.newShapeCoordinate.addSite === true && this.props.newShapeCoordinate.coordinateList.length > 0 && this.state.addSite === true) {
-            console.log(this.props.newShapeCoordinate.selectShapIndex, '...');
+        if (prevProps.newShapeCoordinate !== this.props.newShapeCoordinate && this.props.newShapeCoordinate.addSite === true && this.props.newShapeCoordinate.coordinateList && this.props.newShapeCoordinate.coordinateList.length > 0 && this.state.addSite === true) {
             this.updateAddSite(this.props.newShapeCoordinate.coordinateList, this.props.newShapeCoordinate.selectShapIndex);
-        } else if (prevProps.newShapeCoordinate !== this.props.newShapeCoordinate && this.props.newShapeCoordinate.addSite === false && this.props.newShapeCoordinate.selectCoordinate.length > 0 && this.state.addSite === true) {
+        } else if (prevProps.newShapeCoordinate !== this.props.newShapeCoordinate && this.props.newShapeCoordinate.addSite === false && this.props.newShapeCoordinate.selectCoordinate && this.props.newShapeCoordinate.selectCoordinate.length > 0 && this.state.addSite === true) {
 
             this.state.siteName.map((site: any, index: number) => {
                 site.active = false;
@@ -148,23 +146,25 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
         // this.state.siteName = [];
         if (coordinate.length > 0) {
             coordinate.map((obj: any, index: any) => {
-                this.state.siteName.map((site: any, index: number) => {
-                    site.active = false;
-                });
                 let matchSite: any = this.state.siteName.filter((obj: any) => {return obj.id === (index + 1)});
                 if (matchSite.length === 0) {
                     this.state.count += 1;
                     this.state.siteName.push({
                         id: this.state.count,
                         name: "Site no. " + this.state.count,
-                        active: selectShapIndex === -1 ? true : false,
+                        active: false,
                         coordinate: obj,
                         disable: true
                     });
                 }
             })
+            this.state.siteName.map((site: any, index: number) => {
+                site.active = false;
+            });
             if (selectShapIndex !== -1) {
                 this.state.siteName[selectShapIndex].active = true;
+            } else {
+               this.state.siteName[this.state.siteName.length - 1].active = true;
             }
             this.setState({ siteName: this.state.siteName });
         }
@@ -209,22 +209,19 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
         }
     }
 
-    deleteItem: any = () => {
-        // this.state.count += 1;
-        // this.state.siteName.map((site: any, index: number) => {
-        //     site.active = false;
-        // });
-        // this.state.siteName.pop({
-        //     id: this.state.count,
-        //     name: "Site no. " + this.state.count,
-        //     active: true
-        // });
-        // this.setState({ siteName: this.state.siteName });
-
+    deleteItem: any = (item: any, index: number) => {
+        if(this.state.siteName[index].active === true) {
+            this.state.siteName.splice(index, 1);
+            this.state.siteName[this.state.siteName.length -1].active = true;
+        } else {
+            this.state.siteName.splice(index, 1);
+        }
+        let triggerSiteDetails: any = {siteName: this.state.siteName[index], index: index, action: 'delete'};
+        this.props.setSiteDetails(triggerSiteDetails);
+        this.setState({ siteName: this.state.siteName });
     }
 
     handleNext = (obj: any) => {
-        console.log('projDetails :', obj);
         // if (obj.length > 0) {
         //     this.nextEnableBtn = true;
         // }
@@ -273,7 +270,6 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
                 })
             });
         }
-        console.log('...sites...' + JSON.stringify(sites));
 
         apiData["projectName"] = this?.projectModel?.projectName;
         apiData["notes"] = this?.projectModel?.notes;
@@ -283,8 +279,6 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
         apiData["createdDate"] = new Date();
         //apiData["updatedDate"] = "2020-07-20T18:41:27.5836296Z";
         apiData["sites"] = sites;
-
-        console.log('...apiData...' + apiData);
         console.log('...apiData...' + JSON.stringify(apiData));
         this.props.project?.saveProject(apiData, this.saveProjectResponse, this.saveProjectFail);
         this.isModalOpen = false;
@@ -339,11 +333,9 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
 
                     for (let i = 1; i < lines.length - 1; i++) {
                         let currentline: any = lines[i].split(',');
-                        console.log('currentline :', currentline, ', latitudeIndex :', latitudeIndex, ', longitudeIndex :', longitudeIndex);
                         triangleCoords.push({ 'lat': parseFloat(currentline[latitudeIndex]), 'lng': parseFloat(currentline[longitudeIndex]) })
                     }
-                    console.log(triangleCoords);
-
+                    
                     //WIP: Draw for xml cordinates 'triangleCoords'
                     this.props.coordinateDetailsData(triangleCoords);
 
@@ -396,9 +388,15 @@ export default class SiteComponent extends React.Component<IModelSiteProps> {
                                     <DropdownItem onClick={()=> item.disable = false}>
                                         Rename
                                         </DropdownItem>
-                                    <DropdownItem onClick={e =>
+                                    {/* <DropdownItem onClick={e =>
                                         window.confirm("Are you sure you wish to delete this item?") &&
                                         this.deleteItem(e)
+                                    }>
+                                        Delete
+                                        </DropdownItem> */}
+                                        <DropdownItem onClick={() =>
+                                        window.confirm("Are you sure you wish to delete this item?") &&
+                                        this.deleteItem(item, index)
                                     }>
                                         Delete
                                         </DropdownItem>

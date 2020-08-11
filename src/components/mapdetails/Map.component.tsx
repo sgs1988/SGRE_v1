@@ -72,10 +72,10 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
         //this.curseldiv.innerHTML = "<b>cursel</b>:";
     }
 
-    setSelection = (shape: any, isNotMarker: any, count: number) => {
+    setSelection = (shape: any, isNotMarker: any, count: number, coordinateList: any) => {
         if (this.state.storeShapeCoordinate.length > 0) {
             this.state.selectShapIndex = count - 1;
-            this.setState({ newShapeCoordinate: { addSite: false, coordinateList: this.state.storeShapeCoordinate, selectCoordinate: this.state.storeShapeCoordinate[count - 1] } });
+            this.setState({ newShapeCoordinate: { addSite: false, coordinateList: this.state.storeShapeCoordinate, selectCoordinate: coordinateList } });
         }
         this.clearSelection();
         this.selectedShape = shape;
@@ -120,7 +120,7 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
         this.state.count += 1;
         let count: any = this.state.count;
         window.google.maps.event.addListener(bermudaTriangle, 'click', () => {
-            this.setSelection(bermudaTriangle, bermudaTriangle, count);
+            this.setSelection(bermudaTriangle, bermudaTriangle, count, triangleCoords);
         });
     }
 
@@ -155,7 +155,6 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
         });
 
         if (triangleCoords.length > 0) {
-            console.log(triangleCoords[0]);
             this.setState({ center: triangleCoords[0] });
         }
         this.map = new window.google.maps.Map(this.googleMapRef.current, {
@@ -185,11 +184,7 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
             this.state.count += 1;
             let count: any = this.state.count;
             this.state.selectShapIndex = -1;
-            window.google.maps.event.addListener(newShape, 'click', () => {
-                this.setSelection(newShape, isNotMarker, count);
-
-            });
-
+            
             let coordinateList: any = [];
             if (typeof (newShape.getPath) === 'function') {
                 for (let i = 0; i < newShape.getPath().getLength(); i++) {
@@ -205,6 +200,10 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
                 this.setState({ newShapeCoordinate: { addSite: true, coordinateList: this.state.storeShapeCoordinate, selectCoordinate: this.state.storeShapeCoordinate[this.state.storeShapeCoordinate.length - 1], selectShapIndex: this.state.selectShapIndex } });
 
             }
+            window.google.maps.event.addListener(newShape, 'click', () => {
+                this.setSelection(newShape, isNotMarker, count, coordinateList);
+
+            });
 
         })
         const centerControlDiv = document.createElement("div");
@@ -307,7 +306,6 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
 
     componentDidMount() {
         const match: any = this.props;
-        console.log(match.location.state, '...');
         const googleMapScript = document.createElement('script');
         googleMapScript.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAP_API_KEY}&libraries=drawing,places`;
         window.document.body.appendChild(googleMapScript);
@@ -319,7 +317,6 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
     }
 
     coordinateDetails = (arg: any) => {
-        console.log(arg, '....test....');
 
         //sample data
         // const triangleCoordsTest = [
@@ -335,8 +332,15 @@ export default class MapComponent extends React.Component<IModelSiteProps> {
     }
 
     getSiteDetails = (arg: any) => {
-        let index: any = arg.id - 1;
-        window.google.maps.event.trigger(this.state.triggerShaps[index], 'click', {})
+        if (arg.action === 'trigger') {
+            // let index: any = arg.siteName.id - 1;
+            window.google.maps.event.trigger(this.state.triggerShaps[arg.index], 'click', {})
+        } else if (arg.action === 'delete') {
+            this.state.storeShapeCoordinate.splice(arg.index, 1);
+            this.state.triggerShaps[arg.index].setMap(null);
+            this.state.triggerShaps.splice(arg.index, 1);
+        }
+        
     }
     render() {
 
