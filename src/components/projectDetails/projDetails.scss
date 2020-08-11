@@ -1,0 +1,251 @@
+@font-face {
+    font-family: 'fonts';
+    src: local('fonts'), url(../../fonts/Barlow/Barlow-Medium.ttf) format('ttf');
+  }
+Button:focus {outline:0;}
+
+.mainModalDiv{
+    border: 10px solid #ecebeb;
+    padding: 3%;
+.generalhead{
+    background-color: #eaeaea;
+    padding: 2%;
+    margin-bottom:20px;
+   
+    font-size:  14px;
+}
+}
+.form-control{
+    border-radius: 2PX !important;
+    height: 33px;
+    font-size: 14px;
+    padding-bottom: 1px;
+   
+}
+.form-control:focus{
+    box-shadow: 0 0 0 0.01rem #009999;
+    border-color: #009999;
+}
+
+.borderError{
+    border: 1px solid red;
+}
+select#country {
+    padding-bottom: 1px;
+}
+.required:after {
+    content:" *";
+    color: red;
+}
+.calen {
+    position: relative;
+    left: 88%;
+    bottom: 29px;
+}
+.secondIn{
+    margin-left:3% !important;
+}
+.deleteHemisBtn {
+    margin-left: 5%;
+    background-color: #fff !important;
+    border:#fff !important;
+    .deleteHemisBtnIcon {
+        color: red;
+        position: relative;
+        font-size: 25px !important;
+       
+    }
+}
+.react-datepicker-wrapper {
+    width: 100%;
+}
+.modal-header{
+    display: flex;
+	flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+    border-bottom: none !important;
+.modal-title{
+    width:100%;
+.newprjct{
+    justify-content: flex-start;
+}
+button.close{
+    justify-content: flex-end;
+    position: absolute;
+    top: 16px;
+    right: 15px;
+}
+}
+}
+.modal-footer{
+    border-top: none !important;
+    .nextBtn{
+        background-color: #321850;
+        color:#fff;
+        }
+}
+.modalMain{
+    display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+.openPrjct{
+        
+    background-color: #321850;
+    color:#fff;
+    text-align: center;
+    justify-content: center;
+    margin-top: 10%;
+}
+
+}
+
+.btn-secondary.focus, .btn-secondary:focus{
+    background-color: #321850;
+}
+
+
+.modal-dialog {
+    max-width: 803px !important;
+}
+.error{
+    color:red;
+    font-size: 12px;
+}
+.errorlatlong{
+    color:red;
+    font-size: 12px;
+    top: 9px;
+    position: absolute;
+    right: 60px;
+}
+span.hemiser{
+    top: 7px;
+    right: 29px;
+}
+span.errorlatlong.hemiserror {
+    right: 2px !important;
+    top: 7px;
+}
+//second modal css
+
+.nextCordinate{
+    text-align: center;
+}
+.cordinate{
+    background-color: #F5F5F5;
+    height:50px;
+    padding:2%;
+}
+.search-box,.close-icon,.search-wrapper {
+	position: relative;
+	padding: 10px;
+}
+.col-sm-3.addpointHemi {
+    margin-left: 35px;
+}
+.divError{
+    background-color: #f9e1e2;
+}
+.close-icon {
+	border:1px solid transparent;
+	background-color: transparent;
+	display: inline-block;
+	vertical-align: middle;
+  outline: 0;
+  cursor: pointer;
+  position: relative;
+  bottom: 29px;
+  left: 300px;
+}
+.close-icon:after {
+	content: "X";
+    display: block;
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    background-color: #fff;
+    z-index: 1;
+    top: 0;
+    margin: auto;
+    padding: 0px;
+    text-align: center;
+    color: #1c1b1b;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: pointer;
+}
+button.close-icon.geolat {
+    left: -47px;
+    bottom: -5px;
+}
+.row.hemisDiv.mt-3 {
+    margin-left: -48px;
+}
+button.close-icon.hemipoint {
+    left: -32px;
+    bottom: -8px;
+}
+
+
+button.close-icon.geolong {
+    left: -48px;
+    bottom: -6px;
+}
+span.east {
+    position: relative;
+    right: 34px;
+}
+.col-sm-6 {
+    height: 35px;
+}
+.separateDiv{
+    margin-top: 27px;
+}
+.typeDiv{
+    padding:2%;
+    margin-bottom: 0;
+}
+.react-datepicker-wrapper{
+    margin-top: 5px;
+}
+.pointOne{
+    padding-top: 1%;
+    margin-bottom: 0;
+}
+.addPointBtn{
+    background-color: rgba(0, 0, 0, 0.1) !important;
+    height: 40px;
+}
+.addpointDiv{
+    margin-left: -14px;
+}
+span.north {
+    position: relative;
+    left: -30px;
+}
+.hemipointEast{
+    position: relative;
+    right: 18px;
+}
+span.hemipointNorth {
+    position: relative;
+    right: 18px;
+}
+button.close-icon.pointz {
+    left: -33px;
+    bottom: -7px;
+}
+.deleteBtn{
+    background-color: #e5e5e5 !important;
+    border:#fff !important;
+    border-radius: 2px;
+    margin-left: 17px;
+.deleteIcon {
+    color: #3b3838;
+    position: relative;
+    font-size: 19px !important;
+   
+}
+}

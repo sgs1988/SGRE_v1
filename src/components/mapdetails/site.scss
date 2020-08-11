@@ -1,0 +1,132 @@
+.fontSmall {
+    font-size: small
+}
+.listGroupTxt {
+    width: 97%;
+    float: left;
+}
+button.threeDots.btn.btn-secondary:focus {
+    box-shadow: none;
+}
+.nav-link{
+    position: absolute;
+    right: 0;
+    bottom: 2px;
+    font-size: 20px;
+}
+button.threeDots.btn.btn-secondary {
+    position: absolute;
+    bottom: 4px;
+    background-color: transparent;
+    border: none;
+}
+.list-group-item.active {
+   
+    background-color: #93dcdc;
+    border-color: #93dcdc;
+    
+    color: black;
+}
+.fontXSmall  {
+    font-size: x-small
+}
+.sidebarStyle {
+    width: 25%;
+    float: left;
+    padding-left: 12px;
+}
+button.fontSmall.addCordinate.btn.btn-secondary {
+    background-color: #eeecec;
+    border: none;
+    color: black;
+    font-size: 14px;
+}
+.saveBtn{
+    background-color: #321850;
+    color: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    position: fixed;
+    bottom: 0;
+}
+.addWidth{
+    width:50%;
+}
+
+.addsiteDiv label {
+    font-size: 14px;
+    padding: 5px;
+}
+button.arrowBack.btn.btn-secondary {
+    background-color: lightgrey;
+    color: black;
+    position: absolute;
+    left: 271px;
+    top: 145px;
+    border: none;
+}
+#pac-input {
+    background-color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+    margin-left: 12px;
+    padding: 0 11px 0 13px;
+    text-overflow: ellipsis;
+    width: 400px;
+    float: right;
+    border: 1px solid #000000;
+box-sizing: border-box;
+border-radius: 2px;
+height: 32px;
+padding-left: 28px;
+  }
+  i.fa.fa-search {
+    position: absolute;
+    right: 404px;
+    top: 85px;
+}
+  .searchHeader {
+    padding: 2%;
+}
+span.projHead {
+    font-size: 20px;
+}
+.sidebarInnerContainer{
+    height: 473px;
+    overflow-y: scroll
+}
+.dropdown, .dropleft, .dropright, .dropup {
+      position: relative;
+   	  float: right;
+      top: -19px;
+    }
+    button.dropdown-item:first-child {
+        color: lightgrey;
+    }
+    input.listGroupTxt.renameIn.form-control:disabled {
+        background-color: transparent;
+        border: none;
+    }
+button.dropBtn.btn.btn-secondary {
+    position: absolute;
+    top: 10px;
+    right: -18px;
+    background-color: transparent;
+    border: none;
+}
+i.fa.fa-ellipsis-v {
+    font-size: 16px;
+    color: black;
+    margin-top: 13px;
+}
+button.dropBtn.btn.btn-secondary:focus, button.dropBtn.btn.btn-secondary:hover {
+    background-color: transparent;
+    border: none;
+    box-shadow: 0 0 0 0rem rgba(130,138,145,.5) !important;
+}
+.backgroundWhite{
+    background: #fff;
+}
+
+
